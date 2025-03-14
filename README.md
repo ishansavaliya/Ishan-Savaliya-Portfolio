@@ -1,23 +1,5 @@
 
 
-### **📌 Steps to Use:**  
-1. **Download the file** or **copy the content** below.  
-2. Save it as **`README.md`** in your project root directory.  
-3. Run the following commands to push it to GitHub:  
-   ```sh
-   git add README.md
-   git commit -m "Added README file 📄"
-   git push origin main
-   ```
-
----
-
-Now, here’s your **`README.md`** file:  
-
----
-
-### **📄 Full `README.md` File**  
-
 ```md
 # 🚀 Ishan Savaliya Portfolio  
 
@@ -112,24 +94,3 @@ git push origin feature-branch
 - Update **email** and **social media links** with your real accounts.  
 
 ---
-
-### ✅ **How to Use This File**  
-
-1. Copy the above code.  
-2. Paste it into a file named `README.md` in your repository root folder.  
-3. Commit and push it to GitHub:  
-
-```sh
-git add README.md
-git commit -m "Added README file 📄"
-git push origin main
-```
-
-**Now your repository will have a professional README file!** 🎉  
-
-Let me know if you need further modifications! 🚀  
-```
-
----
-
-Now, just **copy and paste** this into your **`README.md`** file and push it to GitHub. Let me know if you need any changes! 😊🚀
