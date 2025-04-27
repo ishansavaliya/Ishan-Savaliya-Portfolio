@@ -99,7 +99,12 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <script type="module" src="/main.js"></script>
+
+    <!-- Custom cursor elements -->
+    <div id="cursor-inner"></div>
+    <div id="cursor-outer"></div>
+
+    <script src="main.js"></script>
     <audio loop id="audioPlayer" style="display: none">
       <source src="src/mp3/preloader.mp3" type="audio/mp3" />
     </audio>
@@ -620,14 +625,14 @@
                 />
                 <span class="tooltip">REACT JS</span>
               </li>
-              <li class="tech-stack-box" data-aos="fade-up">
+              <!-- <li class="tech-stack-box" data-aos="fade-up">
                 <img
                   src="./src/png/NextjsLogo.png"
                   alt="Next js skill"
                   class="tech-stack-logo"
                 />
                 <span class="tooltip">NEXT JS</span>
-              </li>
+              </li> -->
               <!-- <li class="tech-stack-box" data-aos="fade-up">
                 <img
                   src="./src/png/AngularJs.png"
@@ -765,14 +770,14 @@
                 <span class="tooltip">PYTHON</span>
               </li>
 
-              <li class="tech-stack-box" data-aos="fade-up">
+              <!-- <li class="tech-stack-box" data-aos="fade-up">
                 <img
                   src="./src/png/C++.png"
                   alt="C++ skill"
                   class="tech-stack-logo"
                 />
                 <span class="tooltip">C++</span>
-              </li>
+              </li> -->
 
               <li class="tech-stack-box" data-aos="fade-up">
                 <img
@@ -859,55 +864,6 @@
           </div>
 
           <div class="project-boxes-div">
-            <div data-aos="fade-up" class="project-box-wrapper">
-              <div class="project-box project-box2" id="project-box2">
-                <div class="info-div">
-                  <img
-                    src="./src/webp/JobLogo.png"
-                    alt="JobPortal Website website favicon"
-                    class="faviconforProject"
-                  />
-                  <article class="ProjectHeading">JobVerse</article>
-                  <p class="ProjectDescription">
-                    JobVerse - A Job portal website frontend work to help people
-                    find their ideal job opportunities and apply seamlessly with
-                    a secure application process.
-                  </p>
-                  <div class="project-buttons">
-                    <a
-                      href="https://github.com/ishansavaliya/JobVerse-a-Job-Portal-Website.git"
-                      target="_blank"
-                      class="github-redirect"
-                      aria-label="Visit JobVerse on GitHub"
-                    >
-                      <img
-                        src="src/svg/github.svg"
-                        alt="github redirect button"
-                      />
-                    </a>
-                    <a
-                      href=""
-                      target="_blank"
-                      class="cta"
-                      aria-label="Visit JobVerse Live"
-                    >
-                      <span>Live view</span>
-                      <svg viewBox="0 0 13 10" height="10px" width="15px">
-                        <path d="M1,5 L11,5"></path>
-                        <polyline points="8 1 12 5 8 9"></polyline>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-                <div class="image-div">
-                  <img
-                    src="./src/webp/Job Portal.jpeg"
-                    alt="JobVerse preview image"
-                  />
-                </div>
-              </div>
-            </div>
-
             <div class="project-box-wrapper" data-aos="fade-up">
               <div class="project-box project-box5" id="project-box5">
                 <div class="info-div">
@@ -953,6 +909,55 @@
                   <img
                     src="./src/webp/InterviewReady.png"
                     alt="InterviewReady website preview image"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div data-aos="fade-up" class="project-box-wrapper">
+              <div class="project-box project-box2" id="project-box2">
+                <div class="info-div">
+                  <img
+                    src="./src/webp/JobLogo.png"
+                    alt="JobPortal Website website favicon"
+                    class="faviconforProject"
+                  />
+                  <article class="ProjectHeading">JobVerse</article>
+                  <p class="ProjectDescription">
+                    JobVerse - A Job portal website frontend work to help people
+                    find their ideal job opportunities and apply seamlessly with
+                    a secure application process.
+                  </p>
+                  <div class="project-buttons">
+                    <a
+                      href="https://github.com/ishansavaliya/JobVerse-a-Job-Portal-Website.git"
+                      target="_blank"
+                      class="github-redirect"
+                      aria-label="Visit JobVerse on GitHub"
+                    >
+                      <img
+                        src="src/svg/github.svg"
+                        alt="github redirect button"
+                      />
+                    </a>
+                    <a
+                      href=""
+                      target="_blank"
+                      class="cta"
+                      aria-label="Visit JobVerse Live"
+                    >
+                      <span>Live view</span>
+                      <svg viewBox="0 0 13 10" height="10px" width="15px">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="image-div">
+                  <img
+                    src="./src/webp/Job Portal.jpeg"
+                    alt="JobVerse preview image"
                   />
                 </div>
               </div>

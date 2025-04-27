@@ -2880,3 +2880,23 @@ footer {
     flex-direction: column; /* Stack boxes in a column on smaller screens */
   }
 }
+
+/* Form performance optimization - completely disable animations when form is open */
+body.stopscrolling .circle {
+  display: none !important;
+}
+
+/* Force normal cursor on form elements */
+.popup-form input,
+.popup-form textarea {
+  cursor: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Override any custom cursor styles when form is active */
+body.stopscrolling {
+  cursor: auto !important;
+}
