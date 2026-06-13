@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { KEYWORDS } from "@/lib/seo";
 
 const inter = Inter({
   variable: "--font-sans-stack",
@@ -14,7 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ishansavaliya.dev";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.ishansavaliya.me";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,15 +26,20 @@ export const metadata: Metadata = {
   },
   description:
     "Ishan Savaliya's portfolio reimagined as a macOS-style developer operating system — projects, experience, blog, terminal and more.",
-  keywords: [
-    "Ishan Savaliya",
-    "Full Stack Developer",
-    "portfolio",
-    "Next.js",
-    "React",
-    "macOS portfolio",
-  ],
-  authors: [{ name: "Ishan Savaliya" }],
+  keywords: KEYWORDS,
+  authors: [{ name: "Ishan Savaliya", url: SITE_URL }],
+  creator: "Ishan Savaliya",
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  // Google Search Console: replace with your verification token, or rely on
+  // the DNS / HTML-file verification you've already configured.
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
     type: "website",
     url: SITE_URL,
