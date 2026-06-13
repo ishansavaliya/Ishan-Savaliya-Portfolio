@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Ishan OS — design tokens
+   Glass / blur macOS-style theme with dark + light support.
+   =========================================================================== */
+
+:root {
+  /* Surfaces */
+  --os-bg: #0b0d12;
+  --os-fg: #f5f6f8;
+  --os-muted: #9aa3b2;
+
+  /* Glass window */
+  --glass-bg: rgba(28, 30, 38, 0.62);
+  --glass-bg-strong: rgba(22, 24, 31, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 0.5px rgba(255, 255, 255, 0.08);
+
+  /* Top bar / dock */
+  --bar-bg: rgba(20, 22, 28, 0.55);
+  --dock-bg: rgba(40, 42, 52, 0.42);
+
+  /* Accents (macOS-ish) */
+  --accent: #2f80ff;
+  --accent-pink: #ff4d8d;
+  --accent-green: #2bd576;
+  --accent-yellow: #ffbd2e;
+  --accent-red: #ff5f57;
+
+  /* Radii */
+  --radius-window: 12px;
+  --radius-app: 16px;
+}
+
+:root[data-theme="light"] {
+  --os-bg: #e9ecf3;
+  --os-fg: #15171c;
+  --os-muted: #5b6271;
+  --glass-bg: rgba(255, 255, 255, 0.66);
+  --glass-bg-strong: rgba(255, 255, 255, 0.86);
+  --glass-border: rgba(0, 0, 0, 0.10);
+  --glass-highlight: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  --bar-bg: rgba(255, 255, 255, 0.55);
+  --dock-bg: rgba(255, 255, 255, 0.42);
+}
+
+@theme inline {
+  --color-os-bg: var(--os-bg);
+  --color-os-fg: var(--os-fg);
+  --color-os-muted: var(--os-muted);
+  --color-accent: var(--accent);
+  --color-accent-pink: var(--accent-pink);
+  --color-glass-border: var(--glass-border);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* the desktop manages its own surface */
+}
+
+body {
+  background: var(--os-bg);
+  color: var(--os-fg);
+  font-family: var(--font-sans-stack, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+}
+
+/* Glass surface utility */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 0.5px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+}
+
+/* Thin macOS scrollbars */
+.os-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.os-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.os-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+}
+.os-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Allow text selection inside content areas */
+.selectable {
+  user-select: text;
+}
+
+@keyframes os-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
