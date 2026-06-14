@@ -9,6 +9,7 @@ const ICONS: { appId: AppId; label: string }[] = [
   { appId: "contact", label: "Contact Me" },
   { appId: "browser", label: "Browser" },
   { appId: "ai-assistant", label: "Ask Ishan AI" },
+  { appId: "write-blog", label: "Write a Blog" },
 ];
 
 /** Right-aligned desktop shortcut icons (double-click to open). */

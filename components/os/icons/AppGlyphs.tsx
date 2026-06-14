@@ -231,6 +231,31 @@ export function NotesGlyph() {
   );
 }
 
+/* -------------------------------------------------------------- Write Blog */
+export function WriteBlogGlyph() {
+  return (
+    <Glyph bg={["#34d399", "#0e9f6e"]}>
+      {() => (
+        <g>
+          {/* page */}
+          <rect x="280" y="250" width="380" height="500" rx="34" fill="#ffffff" />
+          <g stroke="#0e9f6e" strokeWidth={22} strokeLinecap="round">
+            <line x1="340" y1="360" x2="600" y2="360" />
+            <line x1="340" y1="440" x2="600" y2="440" />
+            <line x1="340" y1="520" x2="520" y2="520" />
+          </g>
+          {/* pencil */}
+          <g transform="rotate(45 640 560)">
+            <rect x="600" y="430" width="80" height="300" rx="20" fill="#ffbd2e" />
+            <path d="M600 730l40 70 40-70z" fill="#1a2330" />
+            <rect x="600" y="430" width="80" height="44" rx="14" fill="#ff5f57" />
+          </g>
+        </g>
+      )}
+    </Glyph>
+  );
+}
+
 /* ---------------------------------------------------------------- Settings */
 export function SettingsGlyph() {
   return (

@@ -161,7 +161,7 @@ export function TopBar({ onSpotlight }: { onSpotlight: () => void }) {
           }}
           onMouseEnter={() => openMenu && setOpenMenu(id)}
           className={cn(
-            "flex h-7 items-center rounded px-2 text-[13px] leading-none transition-colors",
+            "flex h-8 items-center rounded px-2.5 text-[14px] leading-none transition-colors",
             open ? "bg-white/15" : "hover:bg-white/10",
             bold && "font-semibold"
           )}
@@ -182,7 +182,7 @@ export function TopBar({ onSpotlight }: { onSpotlight: () => void }) {
           )}
         </button>
         {open && (
-          <div className="liquid-glass absolute left-0 top-[30px] z-[9100] min-w-56 rounded-lg py-1 text-[13px] shadow-2xl">
+          <div className="glass-strong absolute left-0 top-9 z-[9100] min-w-56 rounded-lg py-1 text-[13px] shadow-2xl">
             {menus[id]?.map((item, i) =>
               item.separator ? (
                 <div key={i} className="my-1 h-px bg-white/10" />
@@ -218,7 +218,7 @@ export function TopBar({ onSpotlight }: { onSpotlight: () => void }) {
   return (
     <div
       ref={barRef}
-      className="liquid-glass fixed inset-x-0 top-0 z-[9000] flex h-7 items-center justify-between px-2 text-[13px] font-medium text-os-fg"
+      className="liquid-glass fixed inset-x-0 top-0 z-[9000] flex h-8 items-center justify-between px-2 text-[14px] font-medium text-os-fg"
       style={{ borderRadius: 0, borderWidth: "0 0 0.5px 0" }}
     >
       <div className="flex items-center gap-0.5">

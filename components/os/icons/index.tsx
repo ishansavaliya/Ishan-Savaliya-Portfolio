@@ -9,11 +9,11 @@ import {
   BrowserGlyph,
   MailGlyph,
   AIGlyph,
-  MusicGlyph,
   NotesGlyph,
   SettingsGlyph,
   LaunchpadGlyph,
   ResumeGlyph,
+  WriteBlogGlyph,
 } from "./AppGlyphs";
 
 export const APP_GLYPHS: Record<AppId, ComponentType> = {
@@ -23,11 +23,11 @@ export const APP_GLYPHS: Record<AppId, ComponentType> = {
   browser: BrowserGlyph,
   contact: MailGlyph,
   "ai-assistant": AIGlyph,
-  spotify: MusicGlyph,
   notes: NotesGlyph,
   settings: SettingsGlyph,
   launchpad: LaunchpadGlyph,
   resume: ResumeGlyph,
+  "write-blog": WriteBlogGlyph,
 };
 
 /** Renders the squircle app icon for a given app id. */

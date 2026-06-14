@@ -10,7 +10,7 @@ import { Settings } from "@/components/apps/settings/Settings";
 import { Notes } from "@/components/apps/notes/Notes";
 import { Resume } from "@/components/apps/resume/Resume";
 import { Launchpad } from "@/components/apps/launchpad/Launchpad";
-import { Music } from "@/components/apps/music/Music";
+import { WriteBlog } from "@/components/apps/blog/WriteBlog";
 
 /**
  * Central registry of all Ishan OS applications.
@@ -84,17 +84,6 @@ export const APPS: Record<AppId, AppDefinition> = {
     accent: "#9b6bff",
     component: AIAssistant,
   },
-  spotify: {
-    id: "spotify",
-    title: "Music",
-    icon: "Music",
-    inDock: true,
-    defaultSize: { width: 760, height: 520 },
-    minSize: { width: 480, height: 360 },
-    resizable: true,
-    accent: "#1ed760",
-    component: Music,
-  },
   notes: {
     id: "notes",
     title: "Notes",
@@ -128,6 +117,17 @@ export const APPS: Record<AppId, AppDefinition> = {
     accent: "#ff5f57",
     component: Resume,
   },
+  "write-blog": {
+    id: "write-blog",
+    title: "Write a Blog",
+    icon: "PenLine",
+    inDock: true,
+    defaultSize: { width: 620, height: 680 },
+    minSize: { width: 460, height: 480 },
+    resizable: true,
+    accent: "#0e9f6e",
+    component: WriteBlog,
+  },
   launchpad: {
     id: "launchpad",
     title: "Launchpad",
@@ -152,8 +152,8 @@ export const DOCK_ORDER: AppId[] = [
   "vscode",
   "browser",
   "ai-assistant",
-  "spotify",
   "notes",
+  "write-blog",
   "contact",
   "settings",
 ];

@@ -11,17 +11,17 @@
   --os-fg: #f5f6f8;
   --os-muted: #9aa3b2;
 
-  /* Glass window */
-  --glass-bg: rgba(28, 30, 38, 0.62);
-  --glass-bg-strong: rgba(22, 24, 31, 0.82);
+  /* Glass window — more opaque so content stays readable over busy wallpapers */
+  --glass-bg: rgba(24, 26, 33, 0.88);
+  --glass-bg-strong: rgba(20, 22, 29, 0.94);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-highlight: rgba(255, 255, 255, 0.06);
   --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6),
     0 0 0 0.5px rgba(255, 255, 255, 0.08);
 
   /* Top bar / dock */
-  --bar-bg: rgba(20, 22, 28, 0.55);
-  --dock-bg: rgba(40, 42, 52, 0.42);
+  --bar-bg: rgba(20, 22, 28, 0.72);
+  --dock-bg: rgba(40, 42, 52, 0.55);
 
   /* Accents (macOS-ish) */
   --accent: #2f80ff;
@@ -95,8 +95,8 @@ body {
 .liquid-glass {
   position: relative;
   background: var(--glass-bg);
-  backdrop-filter: blur(36px) saturate(190%) brightness(1.05);
-  -webkit-backdrop-filter: blur(36px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(48px) saturate(180%) brightness(1.02);
+  -webkit-backdrop-filter: blur(48px) saturate(180%) brightness(1.02);
   border: 0.5px solid var(--glass-border);
   box-shadow:
     0 18px 50px -8px rgba(0, 0, 0, 0.55),

@@ -14,7 +14,6 @@ import { BootScreen } from "./BootScreen";
 import { LoginScreen } from "./LoginScreen";
 import { Spotlight } from "./Spotlight";
 import { DesktopIcons } from "./DesktopIcons";
-import { AudioEngine } from "./AudioEngine";
 
 type Stage = "boot" | "login" | "desktop";
 
@@ -90,7 +89,6 @@ export function Desktop() {
 
           <Dock />
           <Spotlight open={spotlight} onClose={() => setSpotlight(false)} />
-          <AudioEngine />
         </>
       )}
     </div>
