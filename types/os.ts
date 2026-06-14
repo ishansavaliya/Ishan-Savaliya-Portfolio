@@ -8,10 +8,10 @@ export type AppId =
   | "browser"
   | "contact"
   | "ai-assistant"
-  | "spotify"
   | "notes"
   | "settings"
   | "resume"
+  | "write-blog"
   | "launchpad";
 
 /** Metadata that describes a registered application. */

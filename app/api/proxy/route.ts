@@ -64,11 +64,39 @@ export async function GET(req: Request) {
 
     let html = await res.text();
 
-    // Inject a <base> so relative links resolve, and route in-page navigation
-    // back through this proxy.
-    const base = `${url.protocol}//${url.host}`;
-    const inject = `<base href="${base}/">
-<style>html{filter:none}</style>`;
+    // Strip scripts + meta-refresh so client-side JS can't trigger redirect
+    // loops (the cause of the infinite-proxy bug on sites like Google). This
+    // renders a clean, readable static snapshot.
+    html = html
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/<script\b[^>]*\/>/gi, "")
+      .replace(/<meta[^>]*http-equiv=["']?refresh["']?[^>]*>/gi, "");
+
+    const origin = `${url.protocol}//${url.host}`;
+    // Our app's own origin (where /api/proxy lives) — so rewritten links stay
+    // in-window regardless of the proxied page's <base>.
+    const appOrigin = new URL(req.url).origin;
+
+    // Rewrite <a href> links to route back through this proxy so clicking a
+    // result keeps browsing IN-WINDOW (no outside redirect).
+    html = html.replace(
+      /<a\b([^>]*?)\shref=["']([^"'#][^"']*)["']/gi,
+      (m, attrs, href) => {
+        let abs: string;
+        try {
+          abs = new URL(href, origin + url.pathname).toString();
+        } catch {
+          return m;
+        }
+        if (!/^https?:/i.test(abs)) return m;
+        const cleanedAttrs = attrs.replace(/\starget=["'][^"']*["']/gi, "");
+        return `<a${cleanedAttrs} href="${appOrigin}/api/proxy?url=${encodeURIComponent(abs)}"`;
+      }
+    );
+
+    // <base> so relative CSS/images resolve to the proxied origin (loaded
+    // directly). Links were already rewritten to absolute app URLs above.
+    const inject = `<base href="${origin}/">`;
     if (/<head[^>]*>/i.test(html)) {
       html = html.replace(/<head([^>]*)>/i, `<head$1>${inject}`);
     } else {
@@ -78,7 +106,6 @@ export async function GET(req: Request) {
     return new Response(html, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        // Strip frame blockers by simply not forwarding them.
         "Cache-Control": "no-store",
       },
     });

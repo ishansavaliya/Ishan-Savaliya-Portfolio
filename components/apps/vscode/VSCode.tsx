@@ -13,55 +13,18 @@ import {
   FileCode2,
   FileText,
 } from "lucide-react";
-import { Globe, FolderCode } from "lucide-react";
+import { Globe } from "lucide-react";
 import { FILES, FILE_TREE, DEFAULT_FILE, type FileTreeNode } from "./files";
 import { highlightLine } from "./highlight";
 import { cn } from "@/lib/utils";
 
 /**
- * VS Code app. Defaults to a portfolio view (your data shown as code), with a
- * one-click switch to the REAL VS Code for the Web (vscode.dev) in an iframe.
+ * VS Code app — shows Ishan's portfolio data as a real editor workspace
+ * (file tree, tabs, syntax highlighting, minimap, terminal panel). A button in
+ * the status bar opens the actual vscode.dev in a new tab (it blocks iframing).
  */
 export function VSCode() {
-  const [mode, setMode] = useState<"portfolio" | "real">("portfolio");
-
-  return (
-    <div className="flex h-full flex-col bg-[#1e1e1e]">
-      {/* mode switch */}
-      <div className="flex h-7 shrink-0 items-center gap-1 border-b border-black/40 bg-[#252526] px-2 text-[12px]">
-        <button
-          onClick={() => setMode("portfolio")}
-          className={cn(
-            "flex items-center gap-1.5 rounded px-2 py-0.5",
-            mode === "portfolio" ? "bg-white/10 text-white" : "text-[#969696]"
-          )}
-        >
-          <FolderCode size={13} /> Portfolio
-        </button>
-        <button
-          onClick={() => setMode("real")}
-          className={cn(
-            "flex items-center gap-1.5 rounded px-2 py-0.5",
-            mode === "real" ? "bg-white/10 text-white" : "text-[#969696]"
-          )}
-        >
-          <Globe size={13} /> Real VS Code (vscode.dev)
-        </button>
-      </div>
-      <div className="min-h-0 flex-1">
-        {mode === "portfolio" ? (
-          <VSCodePortfolio />
-        ) : (
-          <iframe
-            src="https://vscode.dev"
-            title="VS Code for the Web"
-            className="h-full w-full border-0"
-            allow="clipboard-read; clipboard-write"
-          />
-        )}
-      </div>
-    </div>
-  );
+  return <VSCodePortfolio />;
 }
 
 function VSCodePortfolio() {
@@ -249,6 +212,15 @@ function VSCodePortfolio() {
             <GitBranch size={12} /> main
           </span>
           <span>Ishan OS</span>
+          <a
+            href="https://vscode.dev"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1 opacity-90 hover:opacity-100"
+            title="Open the real VS Code for the Web"
+          >
+            <Globe size={12} /> vscode.dev
+          </a>
         </div>
         <div className="flex items-center gap-3">
           <span>{file?.language === "markdown" ? "Markdown" : "TypeScript"}</span>

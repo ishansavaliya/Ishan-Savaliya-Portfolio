@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { getContent } from "@/lib/content";
 import { allPosts } from "@/content/posts";
-import { SubmitBlog } from "./SubmitBlog";
+import { useWindowStore } from "@/lib/store/useWindowStore";
 
 const c = getContent();
 
@@ -47,21 +47,24 @@ export function Browser() {
   const [path, setPath] = useState<string | null>(null);
   const [external, setExternal] = useState<string | null>(null);
   const [omnibox, setOmnibox] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const openApp = useWindowStore((s) => s.openApp);
 
   function navigate(input: string) {
     const q = input.trim();
     if (!q) return;
-    setPath(null);
-    // URL vs search query.
-    const looksLikeUrl = /^https?:\/\//i.test(q) || /^[\w-]+\.[a-z]{2,}/i.test(q);
+    const looksLikeUrl =
+      /^https?:\/\//i.test(q) || /^[\w-]+\.[a-z]{2,}/i.test(q);
+    // Searches use DuckDuckGo's no-JS HTML endpoint — it proxies cleanly
+    // in-window with real, clickable results (Google blocks framing).
     const url = looksLikeUrl
       ? q.startsWith("http")
         ? q
         : `https://${q}`
-      : `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+      : `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`;
+
+    setPath(null);
     setExternal(`/api/proxy?url=${encodeURIComponent(url)}`);
-    setOmnibox(url);
+    setOmnibox(looksLikeUrl ? url : q);
   }
 
   function goHome() {
@@ -78,7 +81,6 @@ export function Browser() {
 
   return (
     <div className="relative flex h-full flex-col bg-[#1c1e26]">
-      {submitting && <SubmitBlog onClose={() => setSubmitting(false)} />}
       {/* chrome */}
       <div className="flex h-11 shrink-0 items-center gap-2 border-b border-white/8 px-3">
         <div className="flex gap-1 text-os-muted">
@@ -136,10 +138,11 @@ export function Browser() {
       {external ? (
         // Real external site via the best-effort proxy.
         <iframe
+          key={external}
           src={external}
           title="Web"
           className="flex-1 border-0 bg-white"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          sandbox="allow-same-origin allow-forms"
         />
       ) : path ? (
         // In-OS browsing of our own crawlable pages.
@@ -207,7 +210,7 @@ export function Browser() {
                 From the blog
               </h2>
               <button
-                onClick={() => setSubmitting(true)}
+                onClick={() => openApp("write-blog")}
                 className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-white hover:opacity-90"
               >
                 ✍️ Write a post
