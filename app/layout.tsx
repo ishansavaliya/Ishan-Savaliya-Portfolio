@@ -35,11 +35,13 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  // Google Search Console: replace with your verification token, or rely on
-  // the DNS / HTML-file verification you've already configured.
-  verification: process.env.GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  verification: {
+    // Google Search Console (set GOOGLE_SITE_VERIFICATION in env if using the
+    // HTML-tag method; safe to leave unset if verified via DNS).
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    // Bing Webmaster Tools (msvalidate.01).
+    other: { "msvalidate.01": "6CDFDC35E1EA41791B1A912DBA0A5FF8" },
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
