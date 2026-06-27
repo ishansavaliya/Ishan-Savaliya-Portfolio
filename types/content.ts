@@ -30,6 +30,7 @@ export interface Profile {
 export interface Experience {
   id: string;
   company: string;
+  companyUrl?: string;
   role: string;
   type: "internship" | "full-time" | "freelance" | "contract";
   start: string;

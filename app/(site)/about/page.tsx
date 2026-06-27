@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
   const c = await getContentFromDb();
   return (
-    <article>
+    <article className="mx-auto max-w-3xl">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },

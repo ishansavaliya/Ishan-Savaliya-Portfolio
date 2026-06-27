@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Wifi, Search, BatteryMedium, Sliders } from "lucide-react";
+import Link from "next/link";
+import { Wifi, Search, BatteryMedium, Sliders, Monitor } from "lucide-react";
 import { useWindowStore } from "@/lib/store/useWindowStore";
 import { getApp } from "@/lib/apps/registry";
 import { cn } from "@/lib/utils";
@@ -59,6 +60,13 @@ export function TopBar({ onSpotlight }: { onSpotlight: () => void }) {
       {
         label: "Contact Ishan",
         onClick: () => openApp("contact"),
+      },
+      { label: "", separator: true },
+      {
+        label: "Exit to Classic Portfolio",
+        onClick: () => {
+          window.location.href = "/";
+        },
       },
     ],
     app: [
@@ -234,6 +242,14 @@ export function TopBar({ onSpotlight }: { onSpotlight: () => void }) {
       </div>
 
       <div className="flex items-center gap-3.5 pr-1.5">
+        <Link
+          href="/"
+          title="Back to the classic portfolio"
+          className="flex items-center gap-1.5 rounded-full bg-white/12 px-2.5 py-1 text-[12px] font-medium leading-none transition hover:bg-white/20"
+        >
+          <Monitor size={13} />
+          <span className="hidden sm:inline">Classic</span>
+        </Link>
         <BatteryMedium size={18} />
         <Wifi size={15} />
         <button

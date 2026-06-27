@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getContentFromDb } from "@/lib/content/server";
 import { SEED } from "@/lib/content/seed";
-import { JsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
   return SEED.projects.map((p) => ({ id: p.id }));
@@ -20,8 +20,14 @@ export async function generateMetadata({
   return {
     title: `${p.name} — ${p.tagline} | Ishan Savaliya`,
     description: p.description,
+    keywords: p.stack,
     alternates: { canonical: `/projects/${p.id}` },
     openGraph: { title: p.name, description: p.description, type: "article" },
+    twitter: {
+      card: "summary_large_image",
+      title: p.name,
+      description: p.description,
+    },
   };
 }
 
@@ -35,8 +41,22 @@ export default async function ProjectPage({
   const p = c.projects.find((x) => x.id === id);
   if (!p) notFound();
 
+  const creativeWork = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: p.name,
+    headline: `${p.name} — ${p.tagline}`,
+    description: p.description,
+    url: `${SITE_URL}/projects/${p.id}`,
+    keywords: p.stack.join(", "),
+    author: { "@type": "Person", name: "Ishan Savaliya", url: SITE_URL },
+    ...(p.live ? { sameAs: p.live } : {}),
+    ...(p.github ? { codeRepository: p.github } : {}),
+  };
+
   return (
-    <article>
+    <article className="mx-auto max-w-3xl">
+      <JsonLd data={creativeWork} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", url: "/" },

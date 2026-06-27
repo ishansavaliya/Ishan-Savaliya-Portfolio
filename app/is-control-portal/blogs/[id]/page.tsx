@@ -26,6 +26,15 @@ export default async function EditBlog({
           body: data.body ?? "",
           tags: data.tags ?? [],
           published: data.published,
+          authorName: data.author_name ?? "",
+          authorUrl: data.author_url ?? "",
+          coverImage:
+            data.cover_image && /^(https?:\/\/|\/)/.test(data.cover_image)
+              ? data.cover_image
+              : "",
+          publishedAt: data.published_at ?? "",
+          readingTime: data.reading_time ?? undefined,
+          likes: data.likes ?? 0,
         }}
       />
     </div>
