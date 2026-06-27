@@ -1,13 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getContentFromDb } from "@/lib/content/server";
-import { JsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Projects — Ishan Savaliya | Full-Stack & AI Projects",
   description:
     "Projects by Ishan Savaliya: InterviewReady, Wire2Web, JobVerse, Farmzy, and more — built with React, Next.js, Spring Boot, PostgreSQL and AI APIs.",
   alternates: { canonical: "/projects" },
+  openGraph: {
+    type: "website",
+    title: "Projects — Ishan Savaliya",
+    description: "Production apps, freelance client work, and AI/ML projects.",
+    url: "/projects",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects — Ishan Savaliya",
+    description: "Production apps, freelance client work, and AI/ML projects.",
+  },
 };
 
 export default async function ProjectsPage() {
@@ -19,6 +30,12 @@ export default async function ProjectsPage() {
           { name: "Home", url: "/" },
           { name: "Projects", url: "/projects" },
         ])}
+      />
+      <JsonLd
+        data={itemListJsonLd(
+          "Projects by Ishan Savaliya",
+          c.projects.map((p) => ({ name: p.name, url: `/projects/${p.id}` }))
+        )}
       />
       <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
       <p className="mt-2 text-os-muted">

@@ -158,3 +158,21 @@ export async function getContentFromDb(): Promise<PortfolioContent> {
     return SEED;
   }
 }
+
+/** Latest active announcement message, or null. Used by the site hero banner. */
+export async function getActiveAnnouncement(): Promise<string | null> {
+  const supabase = await createServerSupabase();
+  if (!supabase) return null;
+  try {
+    const { data } = await supabase
+      .from("announcements")
+      .select("message")
+      .eq("active", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    return data?.message ?? null;
+  } catch {
+    return null;
+  }
+}

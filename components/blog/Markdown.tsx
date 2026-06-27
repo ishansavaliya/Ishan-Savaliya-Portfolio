@@ -20,7 +20,8 @@ type Block =
   | { type: "h2" | "h3"; text: string }
   | { type: "p"; text: string }
   | { type: "code"; lang: string; text: string }
-  | { type: "ul" | "ol"; items: string[] };
+  | { type: "ul" | "ol"; items: string[] }
+  | { type: "hr" };
 
 function parseBlocks(src: string): Block[] {
   const lines = src.split("\n");
@@ -39,6 +40,11 @@ function parseBlocks(src: string): Block[] {
       }
       i++; // closing fence
       blocks.push({ type: "code", lang, text: buf.join("\n") });
+      continue;
+    }
+    if (/^\s*([-*_])\1{2,}\s*$/.test(line)) {
+      blocks.push({ type: "hr" });
+      i++;
       continue;
     }
     if (line.startsWith("### ")) {
@@ -81,6 +87,7 @@ function parseBlocks(src: string): Block[] {
       lines[i].trim() !== "" &&
       !lines[i].startsWith("#") &&
       !lines[i].startsWith("```") &&
+      !/^\s*([-*_])\1{2,}\s*$/.test(lines[i]) &&
       !/^\s*[-*]\s+/.test(lines[i]) &&
       !/^\s*\d+\.\s+/.test(lines[i])
     ) {
@@ -92,25 +99,43 @@ function parseBlocks(src: string): Block[] {
   return blocks;
 }
 
-/** Inline formatting: **bold** and `code`. */
+/** Inline formatting: [link](url), **bold**, *italic* / _italic_, `code`. */
 function inline(text: string) {
   const parts: React.ReactNode[] = [];
-  const regex = /(\*\*([^*]+)\*\*)|(`([^`]+)`)/g;
+  // groups: 1 link-text 2 link-url | 3 bold | 4 italic(*) | 5 italic(_) | 6 code
+  const regex =
+    /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|(?<!\*)\*(?!\*)([^*\n]+)\*(?!\*)|(?<!\w)_([^_\n]+)_(?!\w)|`([^`]+)`/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let key = 0;
   while ((m = regex.exec(text))) {
     if (m.index > last) parts.push(text.slice(last, m.index));
-    if (m[2]) parts.push(<strong key={key++}>{m[2]}</strong>);
-    else if (m[4])
+    if (m[1] && m[2]) {
+      parts.push(
+        <a
+          key={key++}
+          href={m[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline underline-offset-2 hover:opacity-80"
+        >
+          {m[1]}
+        </a>
+      );
+    } else if (m[3]) {
+      parts.push(<strong key={key++}>{m[3]}</strong>);
+    } else if (m[4] || m[5]) {
+      parts.push(<em key={key++}>{m[4] || m[5]}</em>);
+    } else if (m[6]) {
       parts.push(
         <code
           key={key++}
           className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-accent-pink"
         >
-          {m[4]}
+          {m[6]}
         </code>
       );
+    }
     last = regex.lastIndex;
   }
   if (last < text.length) parts.push(text.slice(last));
@@ -137,6 +162,8 @@ function Block({ block }: { block: Block }) {
           {inline(block.text)}
         </p>
       );
+    case "hr":
+      return <hr className="my-8 border-t border-white/10" />;
     case "code":
       return (
         <pre className="os-scroll overflow-x-auto rounded-xl bg-[#0c0e13] p-4 ring-1 ring-white/10">

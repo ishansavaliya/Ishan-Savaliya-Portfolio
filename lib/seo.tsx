@@ -92,6 +92,40 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   };
 }
 
+/** ItemList schema for collection pages (blog index, projects index). */
+export function itemListJsonLd(
+  name: string,
+  items: { name: string; url: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      url: `${SITE_URL}${it.url}`,
+    })),
+  };
+}
+
+/** Blog schema for the blog index page. */
+export function blogJsonLd(posts: { title: string; slug: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${SITE_NAME} — Blog`,
+    url: `${SITE_URL}/blog`,
+    author: { "@type": "Person", name: SITE_NAME, url: SITE_URL },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      url: `${SITE_URL}/blog/${p.slug}`,
+    })),
+  };
+}
+
 export function JsonLd({ data }: { data: object }) {
   return (
     <script

@@ -1,7 +1,7 @@
 // SERVER-ONLY: reads blog posts from Supabase, falling back to the bundled
 // file-based posts when the DB is unconfigured/empty. Used by the public blog
 // routes (ISR) and the admin.
-import type { BlogPost } from "@/types/blog";
+import type { BlogPost, BlogComment } from "@/types/blog";
 import { POSTS as FILE_POSTS } from "@/content/posts";
 import { createServerSupabase } from "@/lib/supabase/server";
 
@@ -15,12 +15,22 @@ interface BlogRow {
   reading_time: number | null;
   published: boolean;
   published_at: string | null;
+  author_name: string | null;
+  author_url: string | null;
+  likes: number | null;
 }
 
 const FALLBACK_GRADIENT =
   "radial-gradient(120% 120% at 70% 20%, #3a2b6b 0%, #1b1d4e 40%, #0a0c1f 100%)";
 
+/** cover_image can hold a CSS gradient OR an image URL/path — tell them apart. */
+function isImageUrl(v: string | null | undefined): v is string {
+  if (!v) return false;
+  return /^https?:\/\//.test(v) || v.startsWith("/");
+}
+
 function rowToPost(r: BlogRow): BlogPost {
+  const img = isImageUrl(r.cover_image);
   return {
     slug: r.slug,
     title: r.title,
@@ -30,8 +40,11 @@ function rowToPost(r: BlogRow): BlogPost {
     category: r.tags?.[0] ?? "Article",
     publishedAt: r.published_at ?? new Date().toISOString(),
     readingTime: r.reading_time ?? 5,
-    // cover_image stores a CSS gradient (or could be a URL later).
-    coverGradient: r.cover_image ?? FALLBACK_GRADIENT,
+    coverGradient: img ? FALLBACK_GRADIENT : r.cover_image ?? FALLBACK_GRADIENT,
+    coverImage: img ? r.cover_image! : undefined,
+    authorName: r.author_name ?? undefined,
+    authorUrl: r.author_url ?? undefined,
+    likes: r.likes ?? 0,
   };
 }
 
@@ -70,4 +83,22 @@ export function staticSlugs() {
 
 function sortByDate(posts: BlogPost[]) {
   return [...posts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+/** Comments for a post (newest first). Empty when DB is unconfigured. */
+export async function getCommentsBySlug(slug: string): Promise<BlogComment[]> {
+  const supabase = await createServerSupabase();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("comments")
+    .select("*")
+    .eq("post_slug", slug)
+    .order("created_at", { ascending: false });
+  return (data ?? []).map((r) => ({
+    id: r.id,
+    postSlug: r.post_slug,
+    name: r.name,
+    body: r.body,
+    createdAt: r.created_at,
+  }));
 }

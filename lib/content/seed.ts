@@ -64,7 +64,8 @@ export const SEED: PortfolioContent = {
     {
       id: "emgage",
       company: "EMGAGE",
-      role: "Full-Stack Developer Intern",
+      companyUrl: "https://emgage.work",
+      role: "Full-Stack Developer",
       type: "internship",
       start: "Sept 2025",
       end: "Present",
@@ -94,6 +95,7 @@ export const SEED: PortfolioContent = {
     {
       id: "brainybeam",
       company: "Brainybeam Info-Tech Pvt. Ltd.",
+      companyUrl: "https://brainybeam.com",
       role: "MERN Stack Intern",
       type: "internship",
       start: "May 2025",
@@ -213,7 +215,7 @@ export const SEED: PortfolioContent = {
       name: "FireFighter E-Commerce",
       tagline: "Multi-Role E-Commerce Platform",
       category: "freelance",
-      featured: false,
+      featured: true,
       description:
         "A complete multi-role e-commerce system for firefighters with Admin, Vendor, and User panels and Razorpay payments.",
       highlights: [
@@ -225,19 +227,20 @@ export const SEED: PortfolioContent = {
       stack: ["MongoDB", "Express.js", "React.js", "Node.js", "Razorpay"],
     },
     {
-      id: "catering-cms",
-      name: "Catering Business Website",
-      tagline: "Next.js + Sanity CMS",
+      id: "rasvaad",
+      name: "Rasvaad",
+      tagline: "Catering Business Website (Next.js + CMS)",
       category: "freelance",
-      featured: false,
+      featured: true,
       description:
-        "A modern, SEO-optimized static website with SSR and a Sanity CMS for client-managed content.",
+        "A modern, SEO-optimized catering website with SSR and a CMS for client-managed content. Live for a real client.",
       highlights: [
-        "Built a modern, SEO-optimized static website using Next.js with server-side rendering and optimized performance.",
-        "Integrated Sanity CMS for dynamic blog and content management enabling client-side updates without developer dependency.",
-        "Configured domain and deployment using Hostinger with production-ready setup and performance tuning.",
+        "Built a modern, SEO-optimized website using Next.js with server-side rendering and optimized performance.",
+        "Integrated a CMS for dynamic content management enabling client-side updates without developer dependency.",
+        "Configured domain and production deployment with performance tuning.",
       ],
-      stack: ["Next.js", "Sanity CMS", "JavaScript", "Hostinger"],
+      stack: ["Next.js", "Sanity CMS", "JavaScript", "SEO"],
+      live: "https://rasvaad.in",
     },
     {
       id: "agripredict",
