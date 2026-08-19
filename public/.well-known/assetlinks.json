@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hris",
+      "sha256_cert_fingerprints": [
+        "01:74:CD:BE:67:22:03:B5:BF:B7:76:49:C9:3B:21:0C:C0:02:E0:05:5B:AF:D9:E7:B3:36:3D:0E:95:DE:F6:C4"
+      ]
+    }
+  }
+]
